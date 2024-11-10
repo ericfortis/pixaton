@@ -56,3 +56,8 @@ The above report should open. That is, `demo-tests/login-form.gold.png`
 is outdated. In that screenshot, the login button has squared
 corners, but the current `demo-app/index.html` has rounded corners.
 
+
+## More Examples
+Besides, `./demo-tests` Mockaton uses Pixaton,
+so you could explore those examples as well.
+https://github.com/ericfortis/mockaton/tree/main/ui-tests
