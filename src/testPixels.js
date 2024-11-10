@@ -1,5 +1,5 @@
 import { parse, join } from 'node:path'
-import { describe, it, before } from 'node:test'
+import { describe, it, before, after } from 'node:test'
 import {
 	existsSync as exists,
 	readFileSync as read,
@@ -13,6 +13,7 @@ import { ImageExt } from './FileExtensions.js'
 export function testPixels(page, testFilename, url, selector, {
 		skip,
 		beforeSuite = () => {},
+	  afterSuite = () => {},
 		viewports = [{ width: 800, height: 600 }],
 		colorSchemes = ['light'],
 		gotoOptions,
@@ -20,7 +21,6 @@ export function testPixels(page, testFilename, url, selector, {
 		screenshotDelayMs = 0,
 		screenshotOptions = {},
 		diffOptions,
-		afterSuite = () => {}
 	} = {}
 ) {
 	const filenames = Filenames(testFilename)
@@ -64,7 +64,7 @@ export function testPixels(page, testFilename, url, selector, {
 					}
 				})
 			}
-		await afterSuite()
+		await after(afterSuite)
 	})
 }
 

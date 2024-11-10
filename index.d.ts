@@ -27,6 +27,7 @@ export function testPixels(
 	options?: {
 		skip?: boolean
 		beforeSuite?: () => void
+		afterSuite?: () => void
 		viewports?: Viewport[]
 		colorSchemes?: Array<'light' | 'dark'>
 		gotoOptions?: GoToOptions
@@ -34,7 +35,6 @@ export function testPixels(
 		screenshotDelayMs?: number
 		screenshotOptions?: ScreenshotOptions
 		diffOptions?: PixelMatchDiffOptions
-		afterSuite?: () => void
 	}): void
 
 
