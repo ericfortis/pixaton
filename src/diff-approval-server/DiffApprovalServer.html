@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="data:image/svg+xml,%3Csvg viewBox='0 0 960 960' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m436 586q-18.3 0-29-14-9.67-15-9.67-39.8 0-54.8 45.1-54.8h114q39.8 0 55.9-22.6 17.2-22.6 17.2-49.4v-176q0-26.9-17.2-49.4-16.1-22.6-55.9-22.6h-226v702q0 51.6-64.5 51.6-62.3 0-62.3-51.6v-746q0-38.7 19.3-51.6 19.3-12.9 47.3-12.9h314q26.9 0 57 11.8 30.1 11.8 58 30.1h-1.07q27.9 20.4 43 53.7 15 32.2 15 75.2v195q0 87.1-58 130-27.9 20.4-57 31.2-29 10.7-57 10.7z' fill='%23808080'/%3E%3C/svg%3E"/>
+	<title>Pixaton</title>
+	<style>
+		html, body {
+			margin: 0;
+			font-size: 13px;
+		}
+		body {
+			padding: 20px;
+		}
+		* {
+			border: 0;
+			margin: 0;
+			font-family: system-ui, sans-serif;
+			line-height: 1.4;
+			font-size: 100%;
+		}
+
+		section {
+			margin-top: 40px;
+			margin-bottom: 60px;
+
+			h2 {
+				display: flex;
+				align-items: center;
+				margin-bottom: 12px;
+				gap: 12px;
+
+				div {
+					display: flex;
+					flex-direction: column;
+				}
+			}
+		}
+
+		.ApproveButton {
+			padding: 8px 20px;
+			background: #3d9e36;
+			color: white;
+			border-radius: 40px;
+			cursor: pointer;
+			box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+
+			&:hover {
+				background: #2c802d;
+			}
+			&:active {
+				cursor: grabbing;
+			}
+		}
+
+		.viewport {
+			font-weight: normal;
+			color: #666;
+			font-size: 11px;
+		}
+
+		.Figures {
+			display: flex;
+			width: 100%;
+			overflow-x: scroll;
+			gap: 20px;
+
+			figure {
+				margin-bottom: 20px;
+
+				figcaption {
+					padding: 4px 0;
+					border-bottom: 4px solid white;
+					margin-bottom: 10px;
+					font-weight: bold;
+					font-size: 14px;
+
+					&.diff {
+						border-bottom-color: #d5986d
+					}
+					&.gold {
+						border-bottom-color: #ffd500
+					}
+					&.candidate {
+						border-bottom-color: #999
+					}
+				}
+			}
+		}
+		
+		.NoDiffs {
+			padding: 12px 0;
+		}
+	</style>
+</head>
+<body id="app">
+<svg width="140" viewBox="0 0 422 100" xmlns="http://www.w3.org/2000/svg">
+	<path
+		d="m26 63c-1.4 0-2.5-0.53-3.3-1.6-0.73-1.1-1.1-2.6-1.1-4.5 0-4.2 1.7-6.2 5.1-6.2h13c3 0 5.1-0.85 6.4-2.6 1.3-1.7 2-3.6 2-5.6v-20c0-2-0.65-3.9-2-5.6-1.2-1.7-3.3-2.6-6.4-2.6h-26v80c0 3.9-2.4 5.9-7.3 5.9-4.7 0-7.1-2-7.1-5.9v-85c0-2.9 0.73-4.9 2.2-5.9 1.5-0.98 3.3-1.5 5.4-1.5h36c2 0 4.2 0.45 6.5 1.3 2.3 0.9 4.5 2 6.5 3.5 2.1 1.5 3.7 3.5 4.8 6 1.1 2.4 1.7 5.3 1.7 8.5v22c0 6.6-2.2 12-6.6 15-2.1 1.5-4.3 2.7-6.5 3.5s-4.4 1.2-6.5 1.2zm68 31c0 3.9-2.2 5.9-6.7 5.9-4.6 0-6.8-2-6.8-5.9v-63c0-3.9 2.3-5.9 6.8-5.9 4.5 0 6.7 2 6.7 5.9zm2.6-84c0 2.6-0.9 4.8-2.7 6.6s-4 2.7-6.6 2.7-4.8-0.9-6.7-2.7c-1.8-1.8-2.7-4-2.7-6.6 0-2.7 0.9-4.9 2.7-6.7 1.9-1.8 4.1-2.7 6.7-2.7s4.8 0.9 6.6 2.7c1.8 1.8 2.7 4 2.7 6.7zm45 52 21 29c0.57 0.81 0.85 1.7 0.85 2.7 0 1.7-1.2 3.4-3.7 5.1-1.5 1.1-3 1.6-4.4 1.6-0.81 0-1.7-0.28-2.6-0.85-0.81-0.57-1.6-1.3-2.3-2.2l-17-24c-1.2 1.7-2.6 3.6-4 5.6-1.4 2-2.8 4.1-4.3 6.2-1.5 2-2.9 4.1-4.4 6.1-1.4 2-2.7 3.9-3.9 5.6-1.5 2-3.2 3.1-5 3.1-1.5 0-3-0.53-4.4-1.6-1.1-0.81-2-1.6-2.7-2.3-0.57-0.81-0.85-1.7-0.85-2.7s0.33-1.9 0.98-2.8l20-29c-3-4.3-6.2-8.8-9.5-14s-6.5-9.3-9.5-14c-0.33-0.57-0.65-1.2-0.98-1.8-0.24-0.73-0.37-1.3-0.37-1.7 0-1.7 1.1-3.3 2.6-4.2 1.5-0.94 2.2-1.3 2.9-1.5 0.73-0.33 1.4-0.49 2.1-0.49 2.2 0 4.1 1.2 5.7 3.5l15 22 15-22c1.7-2.4 3.6-3.5 5.7-3.5 0.73 0 1.4 0.16 2.1 0.49 0.65 0.24 1.4 0.57 2.9 1.5 1.5 0.94 2.7 2.5 2.7 4.2 0 0.98-0.49 2.2-1.5 3.5zm49 37c-2.5 0-4.9-0.33-7.2-0.98-2.3-0.73-4.5-1.8-6.6-3.1v0.12c-4-2.5-6-7.2-6-14v-6c0-3.3 0.57-6.2 1.7-8.7 1.2-2.5 2.9-4.5 5-6h-0.12c2-1.4 4.2-2.4 6.5-3.1 2.3-0.73 4.5-1.1 6.6-1.1h27v-11c0-2-0.65-3.9-2-5.5-1.2-1.7-3.3-2.6-6.4-2.6h-14c-3.1 0-5.3 0.77-6.5 2.3-1.1 1.5-1.7 3.2-1.7 5.3v0.98c0 4.2-2.3 6.4-6.8 6.4-4.6 0-6.8-2.1-6.8-6.4v-1.1c0-3.3 0.57-6.1 1.7-8.4 1.2-2.3 2.8-4.2 4.9-5.7h-0.12c2.1-1.4 4.3-2.5 6.6-3.4 2.4-0.9 4.6-1.3 6.7-1.3h19c2 0 4.2 0.45 6.5 1.3 2.4 0.9 4.6 2 6.6 3.5s3.6 3.5 4.8 6c1.1 2.4 1.7 5.3 1.7 8.5v49c0 3.9-2.2 5.9-6.7 5.9-0.9 0-1.8-0.041-2.6-0.12-0.73-0.081-1.4-0.28-2.1-0.61-0.57-0.41-1.1-0.94-1.5-1.6-0.33-0.73-0.49-1.7-0.49-2.8l-0.12-27h-25c-1.8 0-3.2 0.2-4.2 0.61s-1.8 1.1-2.3 2c-0.65 1.4-1.1 2.5-1.5 3.3-0.24 0.73-0.37 1.6-0.37 2.6v4.8c0 2.1 0.61 3.7 1.8 4.9 1.3 1.1 3.5 1.6 6.6 1.6h14c3 0 4.5 1.9 4.5 5.7 0 1.6-0.37 3-1.1 4.2-0.73 1.1-1.9 1.6-3.4 1.6zm72-62v44c0 2.1 0.45 3.7 1.3 4.9s2.8 1.7 5.7 1.7h3.2c3.2 0 4.7 1.9 4.5 5.6 0 3.8-1.5 5.7-4.5 5.7h-4c-2.6 0-5-0.33-7.3-0.98-2.3-0.73-4.5-1.8-6.6-3.1v0.12c-4-2.6-6-7.2-6-14v-45h-4.8c-2.9 0-4.5-1.9-4.6-5.7 0-3.8 1.5-5.7 4.6-5.7h4.8v-13c0-3.9 2.3-5.9 7-5.9 4.5 0 6.7 2 6.7 5.9v13h10c3.2 0 4.7 1.9 4.5 5.7 0 3.8-1.5 5.7-4.5 5.7zm64-11c2.1 0 4.3 0.45 6.5 1.3 2.3 0.9 4.5 2 6.5 3.5 2.1 1.5 3.7 3.5 4.8 6 1.1 2.4 1.7 5.3 1.7 8.5v35c0 6.7-2.2 12-6.6 15-4.3 3.1-8.6 4.6-13 4.6h-20c-2.1 0-4.3-0.37-6.5-1.1s-4.4-1.9-6.5-3.5c-4.4-3.1-6.6-8-6.6-15v-35c0-3.3 0.57-6.1 1.7-8.5 1.1-2.5 2.8-4.6 4.8-6s4.2-2.6 6.5-3.5 4.5-1.3 6.6-1.3zm-2.2 62c3 0 5.1-0.85 6.4-2.6 1.3-1.7 2-3.5 2-5.5v-34c0-2-0.65-3.9-2-5.5-1.2-1.7-3.3-2.6-6.4-2.6h-15c-3 0-5.2 0.85-6.5 2.6-1.2 1.6-1.8 3.5-1.8 5.5v34c0 2 0.61 3.8 1.8 5.5 1.3 1.7 3.5 2.6 6.5 2.6zm51 6.4c0 3.9-2.2 5.9-6.7 5.9-4.5 0-6.7-2-6.7-5.9v-49c0-3.3 0.53-6.2 1.6-8.7 1.1-2.4 2.7-4.4 5-6 4.3-3.1 8.6-4.6 13-4.6h20c4.2 0 8.5 1.5 13 4.6 4.4 3.1 6.6 8 6.6 15v49c0 3.9-2.2 5.9-6.7 5.9-4.5 0-6.7-2-6.7-5.9v-48c0-2.1-0.65-4.2-1.8-6-1.1-1.9-3.3-2.9-6.5-2.9h-15c-3.3 0-5.5 0.98-6.6 2.9-1.1 1.7-1.7 3.7-1.7 6z"
+		fill="#333"
+		stroke-width="5"
+		aria-label="Pixaton Logo" />
+</svg>
+
+<script>
+	const API = { // @KeepSync
+		home: '/',
+		diffs: '/diffs',
+		approve: '/approve'
+	}
+	const Strings = {
+		approve: 'Approve Candidate 👌',
+		candidate: 'Candidate',
+		diff: 'Diff',
+		gold: 'Gold 💰🌟',
+		no_diffs: 'No Diffs'
+	}
+
+	const r = createElement
+
+	fetch(API.diffs).then(res => {
+		if (res.ok)
+			res.json().then(App)
+	}).catch(error => alert(error))
+
+	function App(diffs) {
+		createRoot(document.getElementById('app')).render(
+			r('div', null,
+				diffs.length
+					? diffs.map(diff => r(Diff, { diff }))
+					: r('p', { className: 'NoDiffs' }, Strings.no_diffs)))
+	}
+
+	function Diff({ diff }) {
+		const filename = Filename(diff)
+		return (
+			r('section', null,
+				r('h2', null,
+					r('button', {
+						className: 'ApproveButton',
+						async onClick() {
+							try {
+								await fetch(API.approve, {
+									method: 'PATCH',
+									body: JSON.stringify(diff)
+								})
+								window.location.reload()
+							}
+							catch (error) {
+								alert(error)
+							}
+						}
+					}, Strings.approve),
+					r('div', null,
+						r('span', null, filename.title),
+						r('span', { className: 'viewport' }, 'Viewport: ' + filename.viewport))
+				),
+
+				r('div', { className: 'Figures' },
+					r('figure', null,
+						r('figcaption', { className: 'diff' }, Strings.diff),
+						r('img', { src: filename.diff })),
+
+					r('figure', null,
+						r('figcaption', { className: 'candidate' }, Strings.candidate),
+						r('img', { src: filename.candidate })),
+
+					r('figure', null,
+						r('figcaption', { className: 'gold' }, Strings.gold),
+						r('img', { src: filename.gold })))))
+	}
+
+	function Filename(diff) {
+		return {
+			diff,
+			viewport: diff.replace(/.*\.vp/, '').replace('.diff.png', ''),
+			title: diff.replace(/\.vp.*$/, ''),
+			gold: diff.replace('.diff.png', '.gold.png'),
+			candidate: diff.replace('.diff.png', '.candidate.png')
+		}
+	}
+
+
+	/* === Utils === */
+
+	// For switching to React, remove the `createRoot`, `createElement`,
+	// functions; they are simplified React-compatible implementations.
+	function createRoot(root) {
+		return { render(app) { root.appendChild(app)} }
+	}
+
+	function createElement(elem, props = null, ...children) {
+		if (typeof elem === 'function')
+			return elem(props)
+
+		const node = document.createElement(elem)
+		if (props)
+			for (const [key, value] of Object.entries(props))
+				if (key.startsWith('on'))
+					node.addEventListener(key.replace(/^on/, '').toLowerCase(), value)
+				else if (key in node)
+					node[key] = value
+				else
+					node.setAttribute(key, value)
+		node.append(...children.flat())
+		return node
+	}
+</script>
+</body>
+</html>

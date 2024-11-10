@@ -1,0 +1,27 @@
+{
+	"name": "pixaton",
+	"version": "0.1.0",
+	"type": "module",
+	"private": true,
+	"main": "index.js",
+	"types": "index.d.ts",
+	"license": "MIT",
+	"scripts": {
+		"demo": "./demo-app/server.js",
+		"demo-test": "node --test --import=./demo-tests/_setup.js --experimental-test-isolation=none \"./demo-tests/**/*.test.js\"",
+		"outdated": "npm outdated --parseable | awk -F: '{ printf \"npm i %-30s ;# %s\\n\", $4, $2 }'"
+	},
+	"dependencies": {
+		"pixelmatch": "6.0.0",
+		"pngjs": "7.0.0"
+	},
+	"peerDependencies": {
+		"puppeteer": "23.7.1"
+	},
+	"engines": {
+		"node": ">=22.9"
+	},
+	"optionalDependencies": {
+		"mockaton": "8.1.2"
+	}
+}

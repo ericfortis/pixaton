@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="data:">
+	<title>Demo App</title>
+	<style>
+		* {
+			box-sizing: border-box;
+			font-family: system-ui, sans-serif;
+		}
+		html {
+			font-size: 16px;
+		}
+		main {
+			width: 320px;
+		}
+		form {
+			display: flex;
+			flex-direction: column;
+			padding: 20px;
+			background: #eee;
+			gap: 10px;
+
+			label input {
+				width: 100%;
+				padding: 6px;
+				border: 0;
+				margin-top: 2px;
+			}
+
+			button {
+				border-radius: 12px;  /* CHANGED after last ui test */
+				padding: 8px 0;
+				border: 0;
+				margin-top: 8px;
+				background: dodgerblue;
+				color: white;
+				cursor: pointer;
+			}
+		}
+		.Error {
+			color: red
+		}
+	</style>
+</head>
+<body>
+<main>
+	<form>
+		<label>
+			<span>Email</span>
+			<input type="email" required />
+		</label>
+		<label>
+			<span>Password</span>
+			<input type="password" required />
+		</label>
+		<button type="submit">Sign In</button>
+	</form>
+</main>
+
+<script>
+	document.querySelector('form').addEventListener('submit', onLogin)
+
+	async function onLogin(event) {
+		event.preventDefault()
+		const main = document.querySelector('main')
+		try {
+			const res = await fetch('/api/login', { method: 'POST' })
+			switch (res.status) {
+				case 200:
+					main.innerHTML = '<h1>Welcome!</h1>'
+					break
+				case 423:
+					main.innerHTML = '<h1 class="Error">Account Locked</h1>'
+					break
+				default:
+					throw `Status: ${res.status}`
+			}
+		}
+		catch (error) {
+			main.innerHTML = `<h1 class="Error">Something went wrong. ${error}</h1>`
+		}
+	}
+</script>
+</body>
+</html>

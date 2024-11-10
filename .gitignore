@@ -1,0 +1,5 @@
+node_modules
+.idea
+
+demo-tests/*.candidate.png
+demo-tests/*.diff.png
