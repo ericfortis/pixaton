@@ -20,7 +20,7 @@ export interface PixelMatchDiffOptions {
 }
 
 export function testPixels(
-	page: Page, 
+	page: Page,
 	testFilename: string,
 	url: string,
 	selector: string,

@@ -13,14 +13,14 @@ import { ImageExt } from './FileExtensions.js'
 export function testPixels(page, testFilename, url, selector, {
 		skip,
 		beforeSuite = () => {},
-	  afterSuite = () => {},
+		afterSuite = () => {},
 		viewports = [{ width: 800, height: 600 }],
 		colorSchemes = ['light'],
 		gotoOptions,
 		setup = _page => {},
 		screenshotDelayMs = 0,
 		screenshotOptions = {},
-		diffOptions,
+		diffOptions
 	} = {}
 ) {
 	const filenames = Filenames(testFilename)
