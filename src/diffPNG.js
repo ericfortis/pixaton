@@ -2,14 +2,7 @@ import { PNG } from 'pngjs'
 import pixelmatch from 'pixelmatch'
 
 
-/**
- * Runs npm:pixelmatch, which needs images of equal dimensions
- * @param {Buffer} png1 
- * @param {Buffer} png2
- * @typedef {import('../index.d.ts').PixelMatchDiffOptions} PixelMatchDiffOptions
- * @param {PixelMatchDiffOptions} options
- * @returns {Buffer} RGBA
- */
+// Runs npm:pixelmatch, which needs images of equal dimensions
 export function diffPNG(png1, png2, options) {
 	const [img1, img2] = growSmallestSides(
 		PNG.sync.read(png1),
@@ -20,7 +13,6 @@ export function diffPNG(png1, png2, options) {
 	if (nDiffPx)
 		return PNG.sync.write(outDiff)
 }
-
 
 function growSmallestSides(img1, img2) {
 	const maxWidth = Math.max(img1.width, img2.width)

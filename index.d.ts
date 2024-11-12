@@ -41,3 +41,5 @@ export function testPixels(
 export function removeDiffsAndCandidates(testDir: string, recursive?: boolean): void
 
 export function blockExternalURLs(page: Page, origin: string): Promise<void>
+
+export function speedUpAnimations(page: Page, playbackRate: number): Promise<void>
