@@ -1,11 +1,14 @@
 import { after } from 'node:test'
 import { launch } from 'puppeteer'
-import { removeDiffsAndCandidates, testPixels as _testPixels, diffServer } from '../index.js'
+import {
+	removeDiffsAndCandidates,
+	testPixels as _testPixels, 
+	diffServer
+} from '../index.js' // XXX Change it to 'pixaton' in your project
 
 // Before running these tests, spin up the demo app.
-// The demo app is a Mockaton-based app, which
-// is handy setting-up the desired api response.
-//   npm run start
+//   npm install mockaton
+//   npm run demo
 
 export const DEMO_APP_ADDR = 'http://localhost:55201'
 const testsDir = import.meta.dirname
@@ -22,9 +25,9 @@ after(() => {
 export function testPixels(testFileName, path, selector, options = {}) {
 	options.viewports ??= [{ width: 1024, height: 800 }]
 	_testPixels(
-		page, 
-		testFileName, 
-		DEMO_APP_ADDR + path, 
-		selector, 
+		page,
+		testFileName,
+		DEMO_APP_ADDR + path,
+		selector,
 		options)
 }

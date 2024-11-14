@@ -1,13 +1,20 @@
 <img src="pixaton-logo.svg" alt="Pixaton Logo" width="180" style="margin-top: 30px"/>
  
-Pixaton is a collection of Puppeteer helpers for testing UIs by pixel diffing screenshots.
+Pixaton is a collection of [Puppeteer](https://pptr.dev/) helpers for testing UIs by pixel diffing screenshots.
 
-On an M1 MacBook Pro, 120 screenshots take 60 seconds.
-Compare that to paid cloud-based products that need 12 minutes for that.
+On an M1 MBP, 120 screenshots take about 60 seconds, 
+which is 12X faster than the alternative SaaS offerings.
 
 For speed, Pixaton reuses the headless browser instance, so some setup
-is required, see [demo-tests/_setup.js](demo-tests/_setup.js). It
-uses `--experimental-test-isolation=none`, so you’ll need Node v22.9+
+is required. 
+- See [demo-tests/_setup.js](demo-tests/_setup.js)
+  - There you can specify your defaults. For example, the viewport sizes and preferred color schemes.
+- It uses `--experimental-test-isolation=none`, so you’ll need Node v22.9+
+  - See the `demo-test` script runner in [package.json](package.json)
+
+Pixaton forwards its configuration options to Puppeteer and
+[Pixelmatch](https://github.com/mapbox/pixelmatch), so it doesn’t
+limit versatility. Take a look at [index.d.ts](index.d.ts) for the options.
 
 
 ## TL;DR
@@ -15,10 +22,6 @@ uses `--experimental-test-isolation=none`, so you’ll need Node v22.9+
 ```sh
 npm install puppeteer pixaton
 ```
-
-`testPixels` forwards its configuration options to [Puppeteer](https://pptr.dev/)
-and [pixelmatch](https://github.com/mapbox/pixelmatch), so it doesn’t limit versatility.
-Take a look at [index.d.ts](index.d.ts) for details.
 
 ```js
 // Create a wrapper in your main setup file:
@@ -62,6 +65,8 @@ demo-tests/*.candidate.png
 The above report will open showing a diff of the login button with rounded corners.
 
 
-## Examples
-- `./demo-tests`
-- Mockaton uses Pixaton, so you could explore [those examples](https://github.com/ericfortis/mockaton/tree/main/ui-tests) as well
+## More Examples
+- [Mockaton](https://github.com/ericfortis/mockaton) uses Pixaton, so you could explore [those examples](https://github.com/ericfortis/mockaton/tree/main/ui-tests) as well
+
+## Licence
+MIT
