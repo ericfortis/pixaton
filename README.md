@@ -57,6 +57,8 @@ demo-tests/*.candidate.png
 
 ## Getting Started Demo
 - Checkout this repository
+  - `git clone https://github.com/ericfortis/pixaton.git`
+  - `cd pixaton`
 - `npm install`
 - `npm install mockaton` (for running the demo app)
 - `npm run demo`
