@@ -1,6 +1,6 @@
 {
 	"name": "pixaton",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"type": "module",
 	"main": "index.js",
 	"types": "index.d.ts",
@@ -22,6 +22,6 @@
 		"node": ">=22.9"
 	},
 	"optionalDependencies": {
-		"mockaton": "8.1.2"
+		"mockaton": ">=8.2"
 	}
 }
