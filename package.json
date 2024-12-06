@@ -1,6 +1,6 @@
 {
 	"name": "pixaton",
-	"version": "0.1.5",
+	"version": "1.0.0",
 	"type": "module",
 	"main": "index.js",
 	"types": "index.d.ts",
@@ -16,7 +16,7 @@
 		"pngjs": "7.0.0"
 	},
 	"peerDependencies": {
-		"puppeteer": "23.7.1"
+		"puppeteer": ">=23.10.1"
 	},
 	"engines": {
 		"node": ">=22.9"
