@@ -26,14 +26,13 @@ export function testPixels(page, testFilename, url, selector, {
 	const filenames = Filenames(testFilename)
 
 	describe(filenames.basename, { skip }, async () => {
-		await before(beforeSuite)
-
 		for (const cs of colorSchemes)
 			for (const vp of viewports) {
 				const width = vp.width || page.viewport().width
 				const height = vp.height || page.viewport().height
 
 				await it(`📷 ${width}x${height}`, async () => {
+					await before(beforeSuite)
 					await page.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: cs }])
 					await page.setViewport(vp)
 					await page.goto(url, gotoOptions)
@@ -62,9 +61,9 @@ export function testPixels(page, testFilename, url, selector, {
 							throw 'Screenshot does not match'
 						}
 					}
+					await after(afterSuite)
 				})
 			}
-		await after(afterSuite)
 	})
 }
 
