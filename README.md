@@ -68,7 +68,7 @@ The above report will open showing a diff of the login button with rounded corne
 
 
 ## More Examples
-- [Mockaton](https://github.com/ericfortis/mockaton) uses Pixaton, so you could explore [those examples](https://github.com/ericfortis/mockaton/tree/main/ui-tests) as well
+- [Mockaton](https://github.com/ericfortis/mockaton) uses Pixaton, so you could explore [those examples](https://github.com/ericfortis/mockaton/tree/main/pixaton-tests) as well
 
 ## Licence
 MIT
