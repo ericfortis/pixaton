@@ -1,3 +1,4 @@
+import { join } from 'node:path'
 import { after } from 'node:test'
 import { launch } from 'puppeteer'
 import {
@@ -11,7 +12,7 @@ import {
 //   npm run demo
 
 export const DEMO_APP_ADDR = 'http://localhost:55201'
-const testsDir = import.meta.dirname
+const testsDir = join(import.meta.dirname, 'macos')
 
 removeDiffsAndCandidates(testsDir)
 const browser = await launch({ headless: 'shell' })
@@ -24,7 +25,7 @@ after(() => {
 
 export function testPixels(testFileName, path, selector, options = {}) {
 	options.viewports ??= [{ width: 1024, height: 800 }]
-	options.outputDir ??= 'macos'
+	options.outputDir ??= 'demo-tests/macos'
 	_testPixels(
 		page,
 		testFileName,

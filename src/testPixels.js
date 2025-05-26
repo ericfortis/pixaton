@@ -1,10 +1,6 @@
 import { parse, join } from 'node:path'
 import { describe, it, before, after } from 'node:test'
-import {
-	existsSync as exists,
-	readFileSync as read,
-	writeFileSync as write
-} from 'node:fs'
+import { existsSync as exists, readFileSync as read, writeFileSync as write } from 'node:fs'
 
 import { diffPNG } from './diffPNG.js'
 import { ImageExt } from './FileExtensions.js'
@@ -69,12 +65,11 @@ export function testPixels(page, testFilename, url, selector, {
 }
 
 function Filenames(testFileName, outputDir) {
-	const { dir, name } = parse(testFileName)
-	const basename = name.replace(/\.test$/, '')
+	const basename = parse(testFileName).name.replace(/\.test$/, '')
 	return {
 		basename,
 		images(colorScheme, width, height) {
-			const absPrefix = join(dir, outputDir, `${basename}.vp${width}x${height}.${colorScheme}`)
+			const absPrefix = join(outputDir, `${basename}.vp${width}x${height}.${colorScheme}`)
 			return {
 				diff: absPrefix + ImageExt.diff,
 				gold: absPrefix + ImageExt.gold,
