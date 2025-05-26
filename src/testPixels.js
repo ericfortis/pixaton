@@ -17,7 +17,7 @@ export function testPixels(page, testFilename, url, selector, {
 		screenshotDelayMs = 0,
 		screenshotOptions = {},
 		diffOptions,
-		outputDir = 'macos'
+		outputDir = '.'
 	} = {}
 ) {
 	const filenames = Filenames(testFilename, outputDir)
