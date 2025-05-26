@@ -14,7 +14,7 @@ export const DEMO_APP_ADDR = 'http://localhost:55201'
 const testsDir = import.meta.dirname
 
 removeDiffsAndCandidates(testsDir)
-const browser = await launch({ headless: true })
+const browser = await launch({ headless: 'shell' })
 const page = await browser.newPage()
 
 after(() => {
@@ -24,6 +24,7 @@ after(() => {
 
 export function testPixels(testFileName, path, selector, options = {}) {
 	options.viewports ??= [{ width: 1024, height: 800 }]
+	options.outputDir ??= 'macos'
 	_testPixels(
 		page,
 		testFileName,

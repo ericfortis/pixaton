@@ -20,10 +20,11 @@ export function testPixels(page, testFilename, url, selector, {
 		setup = _page => {},
 		screenshotDelayMs = 0,
 		screenshotOptions = {},
-		diffOptions
+		diffOptions,
+		outputDir = 'macos'
 	} = {}
 ) {
-	const filenames = Filenames(testFilename)
+	const filenames = Filenames(testFilename, outputDir)
 
 	describe(filenames.basename, { skip }, async () => {
 		for (const cs of colorSchemes)
@@ -67,13 +68,13 @@ export function testPixels(page, testFilename, url, selector, {
 	})
 }
 
-function Filenames(testFileName) {
+function Filenames(testFileName, outputDir) {
 	const { dir, name } = parse(testFileName)
 	const basename = name.replace(/\.test$/, '')
 	return {
 		basename,
 		images(colorScheme, width, height) {
-			const absPrefix = join(dir, `${basename}.vp${width}x${height}.${colorScheme}`)
+			const absPrefix = join(dir, outputDir, `${basename}.vp${width}x${height}.${colorScheme}`)
 			return {
 				diff: absPrefix + ImageExt.diff,
 				gold: absPrefix + ImageExt.gold,
