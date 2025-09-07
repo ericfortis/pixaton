@@ -30,6 +30,7 @@ export function testPixels(page, testFilename, url, selector, {
 
 				await it(`📷 ${width}x${height}`, async () => {
 					await before(beforeSuite)
+					await after(afterSuite)
 					await page.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: cs }])
 					await page.setViewport(vp)
 					await page.goto(url, gotoOptions)
@@ -58,7 +59,6 @@ export function testPixels(page, testFilename, url, selector, {
 							throw 'Screenshot does not match'
 						}
 					}
-					await after(afterSuite)
 				})
 			}
 	})
