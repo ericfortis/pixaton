@@ -1,17 +1,16 @@
 import { join } from 'node:path'
 import { after } from 'node:test'
 import { launch } from 'puppeteer'
+import { Mockaton } from 'mockaton'
 import {
 	removeDiffsAndCandidates,
-	testPixels as _testPixels, 
+	testPixels as _testPixels,
 	diffServer
 } from '../index.js' // XXX Change it to 'pixaton' in your project
 
-// Before running these tests, spin up the demo app.
-//   npm install mockaton
-//   npm run demo
+const mockaton = await Mockaton({ port: 0 })
+export const DEMO_APP_ADDR = `http://localhost:${mockaton.address().port}`
 
-export const DEMO_APP_ADDR = 'http://localhost:55201'
 const testsDir = join(import.meta.dirname, 'macos')
 
 removeDiffsAndCandidates(testsDir)

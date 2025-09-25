@@ -7,8 +7,7 @@
 	"license": "MIT",
 	"repository": "https://github.com/ericfortis/pixaton",
 	"scripts": {
-		"demo": "./demo-app/server.js",
-		"demo-test": "node --test --import=./demo-tests/_setup.js --experimental-test-isolation=none \"./demo-tests/**/*.test.js\"",
+		"demo": "node --test --import=./demo-tests/_setup.js --experimental-test-isolation=none \"./demo-tests/**/*.test.js\"",
 		"outdated": "npm outdated --parseable | awk -F: '{ printf \"npm i %-30s ;# %s\\n\", $4, $2 }'"
 	},
 	"dependencies": {
@@ -16,12 +15,12 @@
 		"pngjs": "7.0.0"
 	},
 	"peerDependencies": {
-		"puppeteer": ">=24.19.0"
+		"puppeteer": "24.22.3"
 	},
 	"engines": {
 		"node": ">=22.9"
 	},
 	"optionalDependencies": {
-		"mockaton": "8.23.4"
+		"mockaton": "10.0.0"
 	}
 }
