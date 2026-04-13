@@ -2,23 +2,34 @@ import { join } from 'node:path'
 import { after } from 'node:test'
 import { launch } from 'puppeteer'
 import { Mockaton } from 'mockaton'
-import {
-	removeDiffsAndCandidates,
-	testPixels as _testPixels,
-	diffServer
-} from '../index.js' // XXX Change it to 'pixaton' in your project
+import { removeDiffsAndCandidates, testPixels as _testPixels, diffServer } from '../index.js' // XXX Change it to 'pixaton' in your project
 
-const mockaton = await Mockaton({ port: 0 })
+
+const mockaton = await Mockaton({
+	port: 0,
+	hotReload: false,
+	watcherEnabled: false,
+	onReady() {}
+})
 export const DEMO_APP_ADDR = `http://localhost:${mockaton.address().port}`
 
 const testsDir = join(import.meta.dirname, 'macos')
 
 removeDiffsAndCandidates(testsDir)
-const browser = await launch({ headless: 'shell' })
+
+let browser
+try {
+	browser = await launch({ headless: false })
+}
+catch (err) {
+	console.error(err)
+	process.exit(1)
+}
 const page = await browser.newPage()
 
 after(() => {
 	browser?.close()
+	mockaton?.close()
 	diffServer(testsDir)
 })
 

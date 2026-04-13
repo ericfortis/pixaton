@@ -8,8 +8,8 @@ import { ImageExt } from './FileExtensions.js'
 
 export function testPixels(page, testFilename, url, selector, {
 		skip,
-		beforeSuite = () => {},
-		afterSuite = () => {},
+		beforeSuite = page => {},
+		afterSuite = page => {},
 		viewports = [{ width: 800, height: 600 }],
 		colorSchemes = ['light'],
 		gotoOptions,
@@ -29,8 +29,8 @@ export function testPixels(page, testFilename, url, selector, {
 				const height = vp.height || page.viewport().height
 
 				await it(`📷 ${width}x${height}`, async () => {
-					await before(beforeSuite)
-					await after(afterSuite)
+					await before(() => beforeSuite(page))
+					await after(() => afterSuite(page))
 					await page.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: cs }])
 					await page.setViewport(vp)
 					await page.goto(url, gotoOptions)
