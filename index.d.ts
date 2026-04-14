@@ -1,7 +1,7 @@
 import { Page, Viewport, GoToOptions, ScreenshotOptions } from 'puppeteer'
 
 
-export function diffServer(
+export function PixatonReviewServer(
 	testsDir: string,
 	port?: number,
 	open?: (address: string) => void

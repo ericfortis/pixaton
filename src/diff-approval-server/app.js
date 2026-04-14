@@ -3,31 +3,31 @@
 import { join } from 'node:path'
 import { createServer } from 'node:http'
 
+import { config } from './config.js'
 import { ImageExt } from '../FileExtensions.js'
-import { openInBrowser } from './openInBrowser.js'
+import { API, listDiffs, approve, resolveImg } from './Api.js'
 import { sendJSON, sendFile, sendNotFound } from './http.js'
-import { API, listDiffs, approve, config, resolveImg } from './Api.js'
 
 
+export function PixatonReviewServer(options) {
+	return new Promise((resolve, reject) => {
+		Object.assign(config, options)
 
-
-export function diffServer(testsDir, port = 0, open = openInBrowser) {
-	config.testsDir = testsDir
-
-	if (!listDiffs().length) {
-		console.log('Diff Server: No Diffs')
-		return
-	}
-
-	createServer(onRequest).listen(port, function (error) {
-		if (error)
-			console.error('Diff Server: ERROR', error)
-		else {
-			const address = `http://localhost:${this.address().port}`
-			console.log('Diff Server Running. (Ctrl + C) to close it')
-			console.log(address)
-			open(address)
+		if (!listDiffs().length) {
+			console.log('Diff Server: No Diffs')
+			resolve()
+			return
 		}
+
+		const server = createServer(onRequest)
+		server.on('error', reject)
+		server.listen(config.port, config.host, () => {
+			const url = `http://${server.address().address}:${server.address().port}`
+			console.info('Diff Server Running. (Ctrl + C) to close it')
+			console.info(url)
+			open(url)
+			resolve(server)
+		})
 	})
 }
 
@@ -37,7 +37,7 @@ async function onRequest(req, response) {
 
 	if (method === 'GET') {
 		if (url === API.home)
-			sendFile(response, join(import.meta.dirname, 'index.html'))
+			sendFile(response, join(import.meta.dirname, 'client', 'index.html'))
 
 		else if (url === API.diffs)
 			sendJSON(response, listDiffs())

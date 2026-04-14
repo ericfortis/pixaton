@@ -3,11 +3,8 @@ import { readdirSync, lstatSync, existsSync, renameSync, unlinkSync } from 'node
 
 import { ImageExt } from '../FileExtensions.js'
 import { parseJSON, sendBadRequest, sendOK, sendInternalServerError } from './http.js'
+import { config } from './config.js'
 
-
-export const config = {
-	testsDir: ''
-}
 
 export const API = { // @KeepSync with index.html
 	home: '/',

@@ -2,7 +2,7 @@ import { join } from 'node:path'
 import { after } from 'node:test'
 import { launch } from 'puppeteer'
 import { Mockaton } from 'mockaton'
-import { removeDiffsAndCandidates, testPixels as _testPixels, diffServer } from '../index.js' // XXX Change it to 'pixaton' in your project
+import { removeDiffsAndCandidates, testPixels as _testPixels, PixatonReviewServer } from '../index.js' // XXX Change it to 'pixaton' in your project
 
 
 const mockaton = await Mockaton({
@@ -27,10 +27,10 @@ catch (err) {
 }
 const page = await browser.newPage()
 
-after(() => {
+after(async () => {
 	browser?.close()
 	mockaton?.close()
-	diffServer(testsDir)
+	await PixatonReviewServer({ testsDir })
 })
 
 export function testPixels(testFileName, path, selector, options = {}) {
