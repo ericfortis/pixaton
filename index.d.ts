@@ -1,11 +1,14 @@
-import { Page, Viewport, GoToOptions, ScreenshotOptions } from 'puppeteer'
+import { GoToOptions, Page, ScreenshotOptions, Viewport } from 'puppeteer'
+import { Server } from 'node:http'
 
+interface Config {
+	testsDir?: string
+	host?: string,
+	port?: number
+	onReady?: (address: string) => void
+}
 
-export function PixatonReviewServer(
-	testsDir: string,
-	port?: number,
-	open?: (address: string) => void
-): void
+export declare function PixatonReviewServer(options: Partial<Config>): Promise<Server | undefined>
 
 export type RGB = [number, number, number] // 0-255
 

@@ -1,12 +1,13 @@
 import { join } from 'node:path'
-import { readdirSync, lstatSync, unlinkSync } from 'node:fs'
-import { reAllDiffsAndCandidates } from './FileExtensions.js'
+import { readdirSync, unlinkSync } from 'node:fs'
+import { Filename } from './review-app/client/Filename.js'
+import { isFile } from './review-app/server/utils/fs.js'
 
 
 export function removeDiffsAndCandidates(testsDir, recursive = true) {
-	for (const png of readdirSync(testsDir, { recursive })) {
-		const f = join(testsDir, png)
-		if (reAllDiffsAndCandidates.test(png) && lstatSync(f).isFile())
+	for (const file of readdirSync(testsDir, { recursive })) {
+		const f = join(testsDir, file)
+		if ((Filename.isCandidate(file) || Filename.isDiff(file)) && isFile(f))
 			unlinkSync(f)
 	}
 }

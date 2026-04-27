@@ -6,10 +6,11 @@ import pixelmatch from 'pixelmatch'
 export function diffPNG(png1, png2, options) {
 	const [img1, img2] = growSmallestSides(
 		PNG.sync.read(png1),
-		PNG.sync.read(png2))
+		PNG.sync.read(png2)
+	)
 	const { width, height } = img1
 	const outDiff = new PNG({ width, height })
-	const nDiffPx = pixelmatch(img1.data, img2.data, outDiff.data, width, height, options) 
+	const nDiffPx = pixelmatch(img1.data, img2.data, outDiff.data, width, height, options)
 	if (nDiffPx)
 		return PNG.sync.write(outDiff)
 }

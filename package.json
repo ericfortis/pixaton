@@ -1,26 +1,36 @@
 {
 	"name": "pixaton",
-	"version": "1.1.4",
+	"version": "2.0.0",
 	"type": "module",
-	"main": "index.js",
-	"types": "index.d.ts",
 	"license": "MIT",
+	"exports": {
+		".": {
+			"import": "./index.js",
+			"types": "./index.d.ts"
+		}
+	},
+	"files": [
+		"src",
+		"index.js",
+		"index.d.ts"
+	],
 	"repository": "https://github.com/ericfortis/pixaton",
 	"scripts": {
-		"demo": "node --test --import=./demo-tests/_setup.js --experimental-test-isolation=none \"./demo-tests/**/*.test.js\"",
+		"demo": "make demo",
+		"dev": "make dev",
 		"outdated": "npm outdated --parseable | awk -F: '{ printf \"npm i %-30s ;# %s\\n\", $4, $2 }'"
 	},
 	"dependencies": {
-		"pixelmatch": "7.1.0",
+		"pixelmatch": "7.1.1",
 		"pngjs": "7.0.0"
 	},
 	"peerDependencies": {
-		"puppeteer": "24.40.0"
+		"puppeteer": "24.42.0"
 	},
 	"engines": {
 		"node": ">=22.9"
 	},
 	"optionalDependencies": {
-		"mockaton": "13.3.3"
+		"mockaton": "13.9.3"
 	}
 }

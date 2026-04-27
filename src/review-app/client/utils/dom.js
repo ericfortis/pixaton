@@ -1,0 +1,38 @@
+export function t(translation) {
+	return translation[0]
+}
+
+
+export function createElement(tag, props, ...children) {
+	const elem = document.createElement(tag)
+	if (props)
+		for (const [k, v] of Object.entries(props))
+			if (v === undefined) continue
+			else if (k === 'ref') v.elem = elem
+			else if (k === 'style') Object.assign(elem.style, v)
+			else if (k.startsWith('on')) elem.addEventListener(k.slice(2).toLowerCase(), ...[v].flat())
+			else if (k in elem) elem[k] = v
+			else elem.setAttribute(k, v)
+	elem.append(...children.flat().filter(Boolean))
+	return elem
+}
+
+
+export function createSvgElement(tag, props, ...children) {
+	const elem = document.createElementNS('http://www.w3.org/2000/svg', tag)
+	for (const [k, v] of Object.entries(props))
+		elem.setAttribute(k, v)
+	elem.append(...children.flat().filter(Boolean))
+	return elem
+}
+
+
+export function Fragment(...args) {
+	const frag = new DocumentFragment()
+	for (const arg of args)
+		if (Array.isArray(arg))
+			frag.append(...arg)
+		else
+			frag.appendChild(arg)
+	return frag
+}

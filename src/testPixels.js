@@ -1,9 +1,10 @@
 import { parse, join } from 'node:path'
 import { describe, it, before, after } from 'node:test'
-import { existsSync as exists, readFileSync as read, writeFileSync as write } from 'node:fs'
+import { writeFile, readFile } from 'node:fs/promises'
+import { existsSync } from 'node:fs'
 
 import { diffPNG } from './diffPNG.js'
-import { ImageExt } from './FileExtensions.js'
+import { Filename } from './review-app/client/Filename.js'
 
 
 export function testPixels(page, testFilename, url, selector, {
@@ -22,15 +23,15 @@ export function testPixels(page, testFilename, url, selector, {
 ) {
 	const filenames = Filenames(testFilename, outputDir)
 
-	describe(filenames.basename, { skip }, async () => {
+	describe(filenames.testName, { skip }, async () => {
 		for (const cs of colorSchemes)
 			for (const vp of viewports) {
 				const width = vp.width || page.viewport().width
 				const height = vp.height || page.viewport().height
 
 				await it(`📷 ${width}x${height}`, async () => {
-					await before(() => beforeSuite(page))
-					await after(() => afterSuite(page))
+					before(() => beforeSuite(page))
+					after(() => afterSuite(page))
 					await page.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: cs }])
 					await page.setViewport(vp)
 					await page.goto(url, gotoOptions)
@@ -40,7 +41,7 @@ export function testPixels(page, testFilename, url, selector, {
 					await sleep(screenshotDelayMs)
 
 					const { gold, candidate, diff } = filenames.images(cs, width, height)
-					if (!exists(gold)) // It’s a new test
+					if (!existsSync(gold)) // It’s a new test
 						await elem.screenshot({
 							...screenshotOptions,
 							type: 'png',
@@ -52,10 +53,14 @@ export function testPixels(page, testFilename, url, selector, {
 							type: 'png',
 							path: undefined
 						})
-						const diffedImg = diffPNG(read(gold), Buffer.from(candidateImg), diffOptions)
+						const diffedImg = diffPNG(
+							await readFile(gold), 
+							Buffer.from(candidateImg), 
+							diffOptions
+						)
 						if (diffedImg) {
-							write(diff, diffedImg)
-							write(candidate, candidateImg)
+							await writeFile(diff, diffedImg)
+							await writeFile(candidate, candidateImg)
 							throw 'Screenshot does not match'
 						}
 					}
@@ -65,15 +70,15 @@ export function testPixels(page, testFilename, url, selector, {
 }
 
 function Filenames(testFileName, outputDir) {
-	const basename = parse(testFileName).name.replace(/\.test$/, '')
+	const testName = parse(testFileName).name.replace(/\.test$/, '')
 	return {
-		basename,
+		testName,
 		images(colorScheme, width, height) {
-			const absPrefix = join(outputDir, `${basename}.vp${width}x${height}.${colorScheme}`)
+			const absPrefix = join(outputDir, Filename.basename(testName, width, height, colorScheme))
 			return {
-				diff: absPrefix + ImageExt.diff,
-				gold: absPrefix + ImageExt.gold,
-				candidate: absPrefix + ImageExt.candidate
+				diff: absPrefix + Filename.ext.diff,
+				gold: absPrefix + Filename.ext.gold,
+				candidate: absPrefix + Filename.ext.candidate
 			}
 		}
 	}

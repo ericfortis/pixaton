@@ -4,11 +4,14 @@ import { launch } from 'puppeteer'
 import { Mockaton } from 'mockaton'
 import { removeDiffsAndCandidates, testPixels as _testPixels, PixatonReviewServer } from '../index.js' // XXX Change it to 'pixaton' in your project
 
+const rel = f => join(import.meta.dirname, f)
 
 const mockaton = await Mockaton({
+	mocksDir: rel('../mockaton-mocks'),
 	port: 0,
 	hotReload: false,
 	watcherEnabled: false,
+	bypassImportCache: false,
 	onReady() {}
 })
 export const DEMO_APP_ADDR = `http://localhost:${mockaton.address().port}`

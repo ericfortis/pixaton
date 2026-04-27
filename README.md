@@ -10,14 +10,14 @@ is required.
 - See [demo-tests/_setup.js](demo-tests/_setup.js)
   - There you can specify your defaults. For example, the viewport sizes and preferred color schemes.
 - It uses `--experimental-test-isolation=none`, so you’ll need Node v22.9+
-  - See the `demo-test` script runner in [package.json](package.json)
+  - See the `make demo`
 
 Pixaton forwards its configuration options to Puppeteer and
 [Pixelmatch](https://github.com/mapbox/pixelmatch), so it doesn’t
 limit versatility. Take a look at [index.d.ts](index.d.ts) for the options.
 
 
-## TL;DR
+## Overview
 
 ```sh
 npm install puppeteer pixaton
@@ -28,8 +28,8 @@ npm install puppeteer pixaton
 import { myTestPixels } from './_setup.js'
 
 myTestPixels(
-  import.meta.filename, // For using the filename as the test name
-  '/', // URL path
+  import.meta.filename, // test filename
+  '/login', // URL 
   'main', // CSS Selector
   {
     async setup(page) {
@@ -39,11 +39,11 @@ myTestPixels(
 )
 ```
 
-Here’s an example report, where the login button now has rounded corners.
+Here’s an example report, where the login button now has rounded corners and the font has been slightly changed.
 
 <img src="./README-example-diff.png" />
 
-Hitting **Approve Candidate** renames the corresponding
+Hitting **Approve** renames the corresponding
 `.candidate.png` to `.gold.png`, and deletes `.diff.png`
 
 The gold screenshots are meant to be saved in your
@@ -68,7 +68,5 @@ The above report will open showing a diff of the login button with rounded corne
 
 
 ## More Examples
-- [Mockaton](https://github.com/ericfortis/mockaton) uses Pixaton, so you could explore [those examples](https://github.com/ericfortis/mockaton/tree/main/pixaton-tests) as well
+- [Mockaton](https://github.com/ericfortis/mockaton) uses Pixaton, so you could explore [those examples](https://github.com/ericfortis/mockaton/tree/main/pixaton-tests) as well.
 
-## Licence
-MIT
