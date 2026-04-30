@@ -119,7 +119,7 @@ section {
 
 	.Figures {
 		display: grid;
-		width: 100%;
+		overflow: auto;
 		margin-bottom: 20px;
 		
 		&.sideBySide {
