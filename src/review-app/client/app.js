@@ -22,7 +22,7 @@ const store = {
 		store.multiplyDiff = !store.multiplyDiff
 		render()
 	},
-	
+
 	sideBySide: false,
 	toggleSideBySide() {
 		store.sideBySide = !store.sideBySide
@@ -108,7 +108,6 @@ function ToggleSideBySideCheckbox() {
 
 
 function Diff(diff) {
-	const { title, viewport, colorScheme } = Filename.parse(diff)
 	const candidate = Figure(Filename.candidateFromDiff(diff))
 	const gold = Figure(Filename.goldFromDiff(diff))
 
@@ -131,45 +130,66 @@ function Diff(diff) {
 					}
 				}, t`Approve`),
 				r('div', null,
-					Title(title),
-					r('div', { className: CSS.details },
-						r('span', null, viewport.replace('x', '×')),
-						r('span', null, colorScheme)))
+					Title(diff),
+					!store.sideBySide && OpacitySlider(candidate))
 			),
 
 			r('div', { className: classNames(CSS.Figures, store.sideBySide && CSS.sideBySide) },
 				gold,
 				candidate,
 				store.showDiff && Figure(diff, store.multiplyDiff && !store.sideBySide && CSS.multiply),
-				!store.sideBySide && OpacitySlider(candidate)
 			)))
 }
 
+function Title(diff) {
+	const { title, viewport, colorScheme } = Filename.parse(diff)
+	const parts = title.split('/')
+	return (
+		r('div', { className: CSS.Title },
+			parts.map(((p, i) =>
+				r('span', null, p + (i < parts.length - 1 ? '/' : '')))),
+
+			r('div', { className: CSS.details },
+				r('span', null, viewport.replace('x', '×')),
+				r('span', null, colorScheme))))
+}
+
 function OpacitySlider(candidate) {
+	const inputRef = {
+		update(value) {
+			inputRef.elem.value = value
+			inputRef.elem.dispatchEvent(new Event('input'))
+		}
+	}
 	return (
 		r('div', { className: CSS.OpacitySlider },
-			r('span', null, t`Old`),
+			r('button', {
+				disabled: store.showDiff,
+				onClick() {
+					inputRef.update(inputRef.elem.valueAsNumber > 0 ? 0 : 100)
+				}
+			}, t`Old`),
+
 			r('input', {
-				onInput() {
-					candidate.style.opacity = this.valueAsNumber / 100
-				},
+				ref: inputRef,
 				disabled: store.showDiff,
 				title: store.showDiff ? t`Disabled when showing diff` : '',
 				type: 'range',
 				min: 0,
 				step: 1,
 				max: 100,
-				value: 100
+				value: 100,
+				onInput() {
+					candidate.style.opacity = this.valueAsNumber / 100
+				}
 			}),
-			r('span', null, t`New`)))
-}
 
-function Title(title) {
-	const parts = title.split('/')
-	return (
-		r('div', { className: CSS.Title },
-			parts.map(((p, i) =>
-				r('span', null, p + (i < parts.length - 1 ? '/' : ''))))))
+			r('button', {
+				disabled: store.showDiff,
+				onClick() {
+					inputRef.update(inputRef.elem.valueAsNumber < 100 ? 100 : 0)
+				}
+			}, t`New`)))
 }
 
 
