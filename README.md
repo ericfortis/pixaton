@@ -54,6 +54,8 @@ demo-tests/*.diff.png
 demo-tests/*.candidate.png
 ```
 
+<video src="./demo-pixaton.mp4"></video>
+
 
 ## Getting Started Demo
 - Checkout this repository
