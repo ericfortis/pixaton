@@ -41,7 +41,11 @@ myTestPixels(
 
 Here’s an example report, where the login button now has rounded corners and the font has been slightly changed.
 
+### Side-By-Side
 <img src="./README-example-diff.png" />
+
+### Slider (onion skin)
+<img src="./README-example-diff2.png" />
 
 Hitting **Approve** renames the corresponding
 `.candidate.png` to `.gold.png`, and deletes `.diff.png`

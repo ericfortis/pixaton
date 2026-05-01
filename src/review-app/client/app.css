@@ -45,6 +45,7 @@ body {
 
 header {
 	position: sticky;
+	z-index: 100;
 	top: 0;
 	display: flex;
 	height: 47px;
@@ -54,7 +55,7 @@ header {
 
 	.Logo {
 		width: 74px;
-		margin-left: 25px;
+		margin-left: 24px;
 		pointer-events: none;
 		color: var(--colorAccent);
 		fill: var(--colorText);
@@ -146,24 +147,11 @@ section {
 	padding: 24px;
 }
 
-.OpacitySlider {
+.OpacitySliderGroup {
 	display: flex;
 	gap: 4px;
-	input {
+	input[type="range"] {
 		width: 120px;
-	}
-	button {
-		padding: 0 4px;
-		border: 1px solid var(--colorBorder);
-		background: none;
-		font-size: 11px;
-		user-select: none;
-		background: var(--colorBg);
-		border-radius: var(--radius);
-
-		&:enabled:hover {
-			color: var(--colorAccent);
-		}
 	}
 }
 
@@ -173,7 +161,6 @@ section {
 	align-items: center;
 	gap: 4px;
 	font-size: 12px;
-	cursor: pointer;
 	user-select: none;
 
 	input + span {
@@ -186,6 +173,7 @@ section {
 	}
 
 	input:enabled:hover + span {
+		cursor: pointer;
 		opacity: 1;
 	}
 }

@@ -76,7 +76,7 @@ function SectionsDiffs() {
 function ToggleDiffOverlayCheckbox() {
 	return Checkbox({
 		label: Fragment(
-			r('span', null, t`Show Diff`),
+			r('span', null, t`Diff`),
 			r('kbd', null, 'D')),
 		checked: store.showDiff,
 		onChange: store.toggleShowDiff
@@ -155,21 +155,10 @@ function Title(diff) {
 }
 
 function OpacitySlider(candidate) {
-	const inputRef = {
-		update(value) {
-			inputRef.elem.value = value
-			inputRef.elem.dispatchEvent(new Event('input'))
-		}
-	}
+	const inputRef = {}
+	const checkboxRef = {}
 	return (
-		r('div', { className: CSS.OpacitySlider },
-			r('button', {
-				disabled: store.showDiff,
-				onClick() {
-					inputRef.update(inputRef.elem.valueAsNumber > 0 ? 0 : 100)
-				}
-			}, t`Old`),
-
+		r('div', { className: CSS.OpacitySliderGroup },
 			r('input', {
 				ref: inputRef,
 				disabled: store.showDiff,
@@ -181,15 +170,19 @@ function OpacitySlider(candidate) {
 				value: 100,
 				onInput() {
 					candidate.style.opacity = this.valueAsNumber / 100
+					checkboxRef.elem.checked = this.valueAsNumber === 100
 				}
 			}),
-
-			r('button', {
+			Checkbox({
+				ref: checkboxRef,
+				label: t`Candidate`,
 				disabled: store.showDiff,
-				onClick() {
-					inputRef.update(inputRef.elem.valueAsNumber < 100 ? 100 : 0)
+				checked: inputRef.elem.valueAsNumber === 100,
+				onChange() {
+					inputRef.elem.value = inputRef.elem.valueAsNumber < 100 ? 100 : 0
+					inputRef.elem.dispatchEvent(new Event('input'))
 				}
-			}, t`New`)))
+			})))
 }
 
 
@@ -200,10 +193,11 @@ function Figure(src, className) {
 }
 
 
-function Checkbox({ checked, onChange, label, className, disabled }) {
+function Checkbox({ ref, checked, onChange, label, className, disabled }) {
 	return (
 		r('label', { className: classNames(CSS.Checkbox, className) },
 			r('input', {
+				ref,
 				disabled,
 				type: 'checkbox',
 				checked,
