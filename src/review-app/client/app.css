@@ -24,9 +24,12 @@ body {
 	font-size: 13px;
 	color: var(--colorText);
 	font-family: system-ui, sans-serif;
+
+	--major: 24px;
+	--minor: 4px;
 	background-color: var(--colorBg);
-	background-image: linear-gradient(var(--colorBgGrid) 1px, transparent 1px), linear-gradient(90deg, var(--colorBgGrid) 1px, transparent 1px), linear-gradient(var(--colorBgGrid) 0.5px, transparent 0.5px), linear-gradient(90deg, var(--colorBgGrid) 0.5px, var(--colorBg) 0.5px);
-	background-size: 24px 24px, 24px 24px, 4px 4px, 4px 4px;
+	background-image: linear-gradient(var(--colorBgGrid) 1px, transparent 1px), linear-gradient(90deg, var(--colorBgGrid) 1px, transparent 1px), linear-gradient(var(--colorBgGrid) 0.5px, transparent 0.5px), linear-gradient(90deg, var(--colorBgGrid) 0.5px, transparent 0.5px);
+	background-size: var(--major) var(--major), var(--major) var(--major), var(--minor) var(--minor), var(--minor) var(--minor);
 	background-position: -1px -1px, -1px -1px, -0.5px -0.5px, -0.5px -0.5px;
 }
 

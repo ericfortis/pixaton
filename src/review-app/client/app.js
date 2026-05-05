@@ -27,16 +27,36 @@ const store = {
 	toggleSideBySide() {
 		store.sideBySide = !store.sideBySide
 		render()
+	},
+
+	async fetchDiffs() {
+		try {
+			const res = await fetch(API.diffs)
+			if (res.ok) {
+				store.diffs = await res.json()
+				render()
+			}
+		}
+		catch (err) {
+			alert(err)
+		}
+	},
+
+	async approve(diff) {
+		try {
+			await fetch(API.approve, {
+				method: 'PATCH',
+				body: JSON.stringify(diff)
+			})
+			await store.fetchDiffs()
+		}
+		catch (err) {
+			alert(err)
+		}
 	}
 }
 
-fetch(API.diffs).then(res => {
-	if (res.ok)
-		res.json().then(diffs => {
-			store.diffs = diffs
-			render()
-		})
-}).catch(error => alert(error))
+store.fetchDiffs()
 
 function render() {
 	document.body.replaceChildren(App())
@@ -106,27 +126,15 @@ function ToggleSideBySideCheckbox() {
 
 
 
-
 function Diff(diff) {
 	const candidate = Figure(Filename.candidateFromDiff(diff))
-	const gold = Figure(Filename.goldFromDiff(diff))
-
 	return (
 		r('section', null,
 			r('div', { className: CSS.Heading },
 				r('button', {
 					className: CSS.ApproveButton,
-					async onClick() {
-						try {
-							await fetch(API.approve, {
-								method: 'PATCH',
-								body: JSON.stringify(diff)
-							})
-							window.location.reload()
-						}
-						catch (error) {
-							alert(error)
-						}
+					onClick() {
+						store.approve(diff)
 					}
 				}, t`Approve`),
 				r('div', null,
@@ -135,7 +143,7 @@ function Diff(diff) {
 			),
 
 			r('div', { className: classNames(CSS.Figures, store.sideBySide && CSS.sideBySide) },
-				gold,
+				Figure(Filename.goldFromDiff(diff)),
 				candidate,
 				store.showDiff && Figure(diff, store.multiplyDiff && !store.sideBySide && CSS.multiply),
 			)))
